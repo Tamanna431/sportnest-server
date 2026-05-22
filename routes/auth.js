@@ -27,6 +27,7 @@ const sendTokenResponse = (user, statusCode, res) => {
     .cookie('token', token, cookieOptions)
     .json({
       success: true,
+      token,
       user: {
         _id: user._id,
         name: user.name,
