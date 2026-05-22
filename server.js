@@ -16,8 +16,9 @@ app.use(cookieParser());
 // Config CORS with Credentials (Critical for HTTPOnly JWT Cookies across ports!)
 const allowedOrigins = [
   'http://localhost:3000',
-  'http://127.0.0.1:3000'
-];
+  'http://127.0.0.1:3000',
+  process.env.CLIENT_URL
+].filter(Boolean);
 
 app.use(cors({
   origin: function (origin, callback) {
@@ -98,3 +99,5 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
   console.log(`Server running in ${process.env.NODE_ENV || 'production'} mode on port ${PORT}`);
 });
+
+module.exports = app;
