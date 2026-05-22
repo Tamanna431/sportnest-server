@@ -18,8 +18,8 @@ const sendTokenResponse = (user, statusCode, res) => {
   const cookieOptions = {
     expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
     httpOnly: true,
-    secure: false, // Set to true in production with HTTPS
-    sameSite: 'lax'
+    secure: true, // Required for cross-site cookies in Vercel
+    sameSite: 'none' // Required for cross-site cookies
   };
 
   res
@@ -161,7 +161,8 @@ router.post('/logout', (req, res) => {
   res.cookie('token', 'none', {
     expires: new Date(Date.now() + 10 * 1000),
     httpOnly: true,
-    sameSite: 'lax'
+    secure: true,
+    sameSite: 'none'
   });
 
   res.status(200).json({ success: true, message: 'Logged out successfully' });
